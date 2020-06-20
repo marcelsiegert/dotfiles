@@ -1,0 +1,286 @@
+#!/usr/bin/env python3
+"""Dotfiles installation script.
+
+This script first searches $HOME for symlinks pointing to this repository and deletes
+them and, if empty, all parent directories up to $HOME.
+
+Then it searches all first-level directories relative to itself for files named
+"dotfiles.link" and "dotfiles.exec".
+
+Link files define symlinks to be created. Each line in these files defines a single
+symlink and has the following format:
+
+    <symlink path relative to $HOME> -> <target path relative to dotfiles.link>
+
+A symlink path can also start with "XDG_CONFIG_HOME/" or "XDG_DATA_HOME/" to create the
+symlink relative to these XDG user directories.
+
+Exec files are scripts that are executed after all symlinks have been created. The
+working directory is set to the directory that contains the exec file.
+
+Format and lint this script with:
+
+    $ black dotfiles
+    $ flake8 --max-line-length=88 dotfiles
+    $ mypy --cache-dir=/dev/null --strict dotfiles
+"""
+
+import os
+import signal
+import subprocess
+import sys
+from dataclasses import dataclass
+from pathlib import Path
+from typing import List, Type
+
+assert sys.version_info >= (3, 7), "this script requires Python 3.7 or higher"
+assert sys.platform.startswith("linux"), "this script runs only on Linux"
+
+
+class InvalidLinkFileSyntax(Exception):
+    """Raised when a dotfiles.link file is not parsable."""
+
+
+class SymlinkExists(Exception):
+    """Raised when a symlink cannot be created because another file already exists."""
+
+
+class SymlinkTargetNotFound(Exception):
+    """Raised when a symlink target does not exist."""
+
+
+class Message:
+    """Message writer."""
+
+    RESET = "\033[0m"
+    BOLD = "\033[1m"
+    BLUE = "\033[34m"
+    RED = "\033[31m"
+    YELLOW = "\033[33m"
+
+    @classmethod
+    def write(cls: Type["Message"], text: str, stderr: bool = False) -> None:
+        """Write a message."""
+        try:
+            print(text, file=sys.stderr if stderr else sys.stdout, flush=True)
+        except BrokenPipeError:
+            pass
+
+    @classmethod
+    def task(cls: Type["Message"], text: str) -> None:
+        """Write a task message."""
+        cls.write(f"{cls.BOLD}{cls.BLUE}::{cls.RESET}{cls.BOLD} {text}{cls.RESET}")
+
+    @classmethod
+    def progress(cls: Type["Message"], current: int, total: int, text: str) -> None:
+        """Write a progress message."""
+        padding = len(str(total))
+        cls.write(f"({current:>{padding}}/{total}) {text}")
+
+    @classmethod
+    def warning(cls: Type["Message"], text: str) -> None:
+        """Write a warning message."""
+        cls.write(f"{cls.BOLD}{cls.YELLOW}Warning:{cls.RESET} {text}", stderr=True)
+
+    @classmethod
+    def error(cls: Type["Message"], text: str) -> None:
+        """Write an error message."""
+        cls.write(f"{cls.BOLD}{cls.RED}Error:{cls.RESET} {text}", stderr=True)
+
+
+@dataclass
+class Symlink:
+    """Representation of a symlink."""
+
+    symlink_path: Path
+    target_path: Path
+
+    def create(self: "Symlink") -> None:
+        """Create this symlink and, if necessary, its parent directories."""
+        if not self.target_path.exists():
+            raise SymlinkTargetNotFound
+
+        self.symlink_path.parent.mkdir(parents=True, exist_ok=True)
+
+        try:
+            self.symlink_path.symlink_to(
+                os.path.relpath(self.target_path, self.symlink_path.parent)
+            )
+        except FileExistsError:
+            if not self.symlink_path.samefile(self.target_path):
+                raise SymlinkExists from None
+
+    def delete(self: "Symlink") -> None:
+        """Delete this symlink and, if empty, all parent directories."""
+        self.symlink_path.unlink()
+
+        parent_dir_path = self.symlink_path.parent
+        try:
+            while parent_dir_path != Path.home():
+                parent_dir_path.rmdir()
+                parent_dir_path = parent_dir_path.parent
+        except OSError:
+            pass
+
+
+def get_repo_path() -> Path:
+    """Return the path to this repository."""
+    return Path(__file__).resolve().parent
+
+
+def get_link_file_paths() -> List[Path]:
+    """Return the paths to all dotfiles.link files in this repository."""
+    return [x for x in get_repo_path().glob("*/dotfiles.link") if x.is_file()]
+
+
+def get_exec_file_paths() -> List[Path]:
+    """Return the paths to all dotfiles.exec files in this repository."""
+    return [x for x in get_repo_path().glob("*/dotfiles.exec") if x.is_file()]
+
+
+def get_link_file_symlinks(link_file_path: Path) -> List[Symlink]:
+    """Return the symlinks in a dotfiles.link file."""
+    symlinks: List[Symlink] = []
+
+    with link_file_path.open(encoding="UTF-8", errors="replace") as link_file:
+        for line in link_file:
+            line, _, _ = line.partition("#")
+            line = line.strip()
+            if not line:
+                continue
+
+            if line.count(" -> ") != 1:
+                raise InvalidLinkFileSyntax
+
+            symlink_part, _, target_part = line.partition(" -> ")
+            symlink_part = symlink_part.strip()
+            target_part = target_part.strip()
+
+            if not symlink_part or not target_part:
+                raise InvalidLinkFileSyntax
+            if symlink_part.startswith("/") or symlink_part.endswith("/"):
+                raise InvalidLinkFileSyntax
+            if target_part.startswith("/") or target_part.endswith("/"):
+                raise InvalidLinkFileSyntax
+
+            symlink_path = Path.home() / symlink_part
+            if symlink_part.startswith("XDG_CONFIG_HOME/"):
+                length = len("XDG_CONFIG_HOME/")
+                symlink_path = get_xdg_config_home_path() / symlink_part[length:]
+            if symlink_part.startswith("XDG_DATA_HOME/"):
+                length = len("XDG_DATA_HOME/")
+                symlink_path = get_xdg_data_home_path() / symlink_part[length:]
+
+            target_path = link_file_path.parent / Path(target_part)
+
+            symlinks.append(Symlink(symlink_path, target_path))
+
+    return symlinks
+
+
+def get_existing_symlinks() -> List[Symlink]:
+    """Return all symlinks in $HOME that point to this repository."""
+    symlinks: List[Symlink] = []
+
+    for path in Path.home().glob("**/*"):
+        if not path.is_symlink():
+            continue
+        if get_repo_path() in path.parents:
+            continue
+        if not get_repo_path() in path.resolve().parents:
+            continue
+
+        symlinks.append(Symlink(path, path.resolve()))
+
+    return symlinks
+
+
+def get_xdg_config_home_path() -> Path:
+    """Return the path to the $XDG_CONFIG_HOME directory."""
+    try:
+        return Path(os.environ["XDG_CONFIG_HOME"])
+    except KeyError:
+        return Path.home() / ".config"
+
+
+def get_xdg_data_home_path() -> Path:
+    """Return the path to the $XDG_DATA_HOME directory."""
+    try:
+        return Path(os.environ["XDG_DATA_HOME"])
+    except KeyError:
+        return Path.home() / ".local/share"
+
+
+def beautify_path(path: Path) -> str:
+    """Beautify a path by replacing $HOME with a tilde."""
+    if str(path).startswith(str(Path.home())):
+        return str(path).replace(str(Path.home()), "~", 1)
+    return str(path)
+
+
+def main() -> int:
+    """Run this script."""
+    if not sys.stdout.isatty() or not sys.stderr.isatty():
+        Message.error("stdout and stderr must be connected to a terminal.")
+        return 1
+
+    has_encountered_errors = False
+
+    Message.task("Deleting existing symlinks...")
+
+    for existing_symlink in get_existing_symlinks():
+        try:
+            existing_symlink.delete()
+        except OSError:
+            has_encountered_errors = True
+            Message.error(
+                f'Cannot delete "{beautify_path(existing_symlink.symlink_path)}"'
+            )
+
+    Message.task("Creating symlinks...")
+
+    for link_file_path in get_link_file_paths():
+        try:
+            symlinks = get_link_file_symlinks(link_file_path)
+        except InvalidLinkFileSyntax:
+            has_encountered_errors = True
+            Message.error(f'Invalid syntax in "{beautify_path(link_file_path)}".')
+            continue
+        except OSError:
+            has_encountered_errors = True
+            Message.error(f'Cannot read "{beautify_path(link_file_path)}".')
+            continue
+
+        for symlink in symlinks:
+            try:
+                symlink.create()
+            except SymlinkExists:
+                Message.warning(f'"{beautify_path(symlink.symlink_path)}" exists.')
+            except SymlinkTargetNotFound:
+                has_encountered_errors = True
+                Message.error(f'"{beautify_path(symlink.target_path)}" does not exist.')
+            except OSError:
+                has_encountered_errors = True
+                Message.error(f'Cannot create "{beautify_path(symlink.symlink_path)}".')
+
+    Message.task("Executing scripts...")
+
+    exec_file_paths = get_exec_file_paths()
+    for index, exec_file_path in enumerate(exec_file_paths, 1):
+        Message.progress(index, len(exec_file_paths), exec_file_path.parent.name)
+        try:
+            subprocess.run([exec_file_path], cwd=exec_file_path.parent, check=True)
+        except subprocess.CalledProcessError as error:
+            Message.warning(f'Script exited with code "{error.returncode}".')
+        except PermissionError:
+            has_encountered_errors = True
+            Message.error(f'"{beautify_path(exec_file_path)}" is not executable.')
+
+    return 1 if has_encountered_errors else 0
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except KeyboardInterrupt:
+        sys.exit(128 + signal.SIGINT)

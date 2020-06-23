@@ -6,3 +6,6 @@ fpath=(
   "${zsh_config_home}"/functions
   ${fpath}
 )
+
+autoload -Uz zle-line-finish && zle -N zle-line-finish
+autoload -Uz zle-line-init && zle -N zle-line-init

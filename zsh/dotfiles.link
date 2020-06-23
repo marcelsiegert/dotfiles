@@ -1,1 +1,3 @@
 .zshrc -> zshrc
+XDG_CONFIG_HOME/zsh/functions/zle-line-finish -> functions/zle-line-finish
+XDG_CONFIG_HOME/zsh/functions/zle-line-init -> functions/zle-line-init

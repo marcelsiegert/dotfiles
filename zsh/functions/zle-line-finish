@@ -1,1 +1,5 @@
 emulate -LR zsh
+
+if (( ${+terminfo[rmkx]} )) && (( ${+terminfo[smkx]} )); then
+  echoti rmkx
+fi

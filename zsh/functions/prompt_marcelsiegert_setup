@@ -1,0 +1,12 @@
+function prompt_marcelsiegert_setup {
+  local hostname='%m'
+  local prompt_sign='%#'
+  local username='%B%F{blue}%n%f%b'
+  local working_dir='%B%40<...<%~%<<%b'
+
+  prompt_opts=(cr percent sp)
+
+  PS1="${username}@${hostname} ${working_dir}${prompt_newline}${prompt_sign} "
+}
+
+prompt_marcelsiegert_setup "${@}"

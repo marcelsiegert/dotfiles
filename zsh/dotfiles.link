@@ -1,3 +1,4 @@
 .zshrc -> zshrc
+XDG_CONFIG_HOME/zsh/functions/prompt_marcelsiegert_setup -> functions/prompt_marcelsiegert_setup
 XDG_CONFIG_HOME/zsh/functions/zle-line-finish -> functions/zle-line-finish
 XDG_CONFIG_HOME/zsh/functions/zle-line-init -> functions/zle-line-init

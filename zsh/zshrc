@@ -15,3 +15,6 @@ autoload -Uz zle-line-finish && zle -N zle-line-finish
 autoload -Uz zle-line-init && zle -N zle-line-init
 
 bindkey -e
+
+autoload -Uz promptinit && promptinit
+prompt marcelsiegert

@@ -1,5 +1,6 @@
 function prompt_marcelsiegert_setup {
   local hostname='%m'
+  local jobs='%(1j. [Jobs: %j].)'
   local prompt_sign='%#'
   local return_status='%B%(?.%F{green}.%F{red})•%f%b'
   local username='%B%F{blue}%n%f%b'
@@ -7,7 +8,7 @@ function prompt_marcelsiegert_setup {
 
   prompt_opts=(cr percent sp)
 
-  PS1="${username}@${hostname} ${working_dir}${prompt_newline}${return_status} ${prompt_sign} "
+  PS1="${username}@${hostname} ${working_dir}${jobs}${prompt_newline}${return_status} ${prompt_sign} "
 }
 
 prompt_marcelsiegert_setup "${@}"

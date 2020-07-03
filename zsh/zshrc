@@ -11,6 +11,8 @@ HISTFILE="${zsh_data_home}"/histfile
 HISTSIZE=10000
 SAVEHIST=10000
 
+autoload -Uz preferred-util
+
 autoload -Uz zle-line-finish && zle -N zle-line-finish
 autoload -Uz zle-line-init && zle -N zle-line-init
 

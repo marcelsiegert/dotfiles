@@ -1,0 +1,14 @@
+emulate -LR zsh
+
+local util
+local utils=(${@:2})
+local variable_name="${1}"
+
+for util in ${utils}; do
+  if (( ${+commands[${util}]} )); then
+    export "${variable_name}"="${util}"
+    return 0
+  fi
+done
+
+return 1

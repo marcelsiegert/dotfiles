@@ -12,6 +12,7 @@ HISTSIZE=10000
 SAVEHIST=10000
 
 autoload -Uz preferred-util
+preferred-util EDITOR nvim vim vi
 preferred-util VISUAL nvim vim vi
 
 autoload -Uz zle-line-finish && zle -N zle-line-finish

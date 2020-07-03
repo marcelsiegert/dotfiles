@@ -13,6 +13,7 @@ SAVEHIST=10000
 
 autoload -Uz preferred-util
 preferred-util EDITOR nvim vim vi
+preferred-util PAGER less more
 preferred-util VISUAL nvim vim vi
 
 autoload -Uz zle-line-finish && zle -N zle-line-finish

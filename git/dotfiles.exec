@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -e
+
+function prompt_for_config_if_unset {
+  local file="${XDG_CONFIG_HOME:-${HOME}/.config}"/git/config.local
+  local key="${1}"
+  local prompt="${2}"
+  local value
+
+  if ! git config --file "${file}" "${key}" > /dev/null; then
+    while [[ -z "${value// }" ]]; do
+      read -erp "${prompt}: " value
+    done
+
+    git config --file "${file}" --replace-all "${key}" "${value}"
+  fi
+}
+
+prompt_for_config_if_unset user.name 'Git user name (user.name)'
+prompt_for_config_if_unset user.email 'Git email address (user.email)'

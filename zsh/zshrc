@@ -27,6 +27,7 @@ autoload -Uz zle-line-init && zle -N zle-line-init
 bindkey -e
 (( ${+terminfo[kich1]} )) && bindkey "${terminfo[kich1]}" overwrite-mode
 (( ${+terminfo[kdch1]} )) && bindkey "${terminfo[kdch1]}" delete-char
+(( ${+terminfo[khome]} )) && bindkey "${terminfo[khome]}" beginning-of-line
 
 autoload -Uz promptinit && promptinit
 prompt marcelsiegert

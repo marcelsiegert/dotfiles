@@ -30,5 +30,7 @@ bindkey -e
 (( ${+terminfo[khome]} )) && bindkey "${terminfo[khome]}" beginning-of-line
 (( ${+terminfo[kend]} )) && bindkey "${terminfo[kend]}" end-of-line
 
+autoload -Uz compinit && compinit -d "${zsh_cache_home}"/compdump
+
 autoload -Uz promptinit && promptinit
 prompt marcelsiegert

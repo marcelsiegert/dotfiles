@@ -8,10 +8,15 @@ function prompt_marcelsiegert_precmd {
   local jobs='%(1j. [Jobs: %j].)'
   local prompt_sign='%#'
   local return_status='%B%(?.%F{green}.%F{red})•%f%b'
+  local time=''
   local username='%B%F{blue}%n%f%b'
   local working_dir='%B%40<...<%~%<<%b'
 
-  PS1="${username}@${hostname} ${working_dir}${jobs}${prompt_newline}${return_status} ${prompt_sign} "
+  if [[ -z "${DISPLAY}" ]]; then
+    time=' [%T]'
+  fi
+
+  PS1="${username}@${hostname} ${working_dir}${time}${jobs}${prompt_newline}${return_status} ${prompt_sign} "
 }
 
 prompt_marcelsiegert_setup "${@}"

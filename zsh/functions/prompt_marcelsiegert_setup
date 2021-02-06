@@ -4,6 +4,7 @@ function prompt_marcelsiegert_setup {
 }
 
 function prompt_marcelsiegert_precmd {
+  local battery_level=''
   local hostname='%m'
   local jobs='%(1j. [Jobs: %j].)'
   local prompt_sign='%#'
@@ -13,10 +14,41 @@ function prompt_marcelsiegert_precmd {
   local working_dir='%B%40<...<%~%<<%b'
 
   if [[ -z "${DISPLAY}" ]]; then
+    battery_level="$(prompt_marcelsiegert_battery_level)"
     time=' [%T]'
   fi
 
-  PS1="${username}@${hostname} ${working_dir}${time}${jobs}${prompt_newline}${return_status} ${prompt_sign} "
+  PS1="${username}@${hostname} ${working_dir}${time}${battery_level}${jobs}${prompt_newline}${return_status} ${prompt_sign} "
+}
+
+function prompt_marcelsiegert_battery_level {
+  local batteries=(/sys/class/power_supply/BAT*(N))
+  local battery
+  local capacity
+  local response=''
+
+  if (( ${#batteries} == 0 )); then
+    return
+  fi
+
+  for battery in ${batteries}; do
+    capacity="$(< "${battery}"/capacity)"
+
+    response+=' '
+
+    if [[ "$(< "${battery}"/status)" == (Charging|Full) ]]; then
+      response+="^"
+    fi
+
+    if (( capacity <= 10 )); then
+      response+="%B%F{red}${capacity}%%%f%b"
+      continue
+    fi
+
+    response+="${capacity}%%"
+  done
+
+  echo " [Battery:${response}]"
 }
 
 prompt_marcelsiegert_setup "${@}"

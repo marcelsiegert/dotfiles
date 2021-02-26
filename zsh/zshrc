@@ -33,6 +33,8 @@ bindkey -e
 (( ${+terminfo[kdch1]} )) && bindkey "${terminfo[kdch1]}" delete-char
 (( ${+terminfo[khome]} )) && bindkey "${terminfo[khome]}" beginning-of-line
 (( ${+terminfo[kend]} )) && bindkey "${terminfo[kend]}" end-of-line
+(( ${+terminfo[kpp]} )) && bindkey "${terminfo[kpp]}" up-history
+(( ${+terminfo[knp]} )) && bindkey "${terminfo[knp]}" down-history
 
 autoload -Uz compinit && compinit -d "${zsh_cache_home}"/compdump
 

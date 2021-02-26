@@ -35,6 +35,8 @@ bindkey -e
 (( ${+terminfo[kend]} )) && bindkey "${terminfo[kend]}" end-of-line
 (( ${+terminfo[kpp]} )) && bindkey "${terminfo[kpp]}" up-history
 (( ${+terminfo[knp]} )) && bindkey "${terminfo[knp]}" down-history
+(( ${+terminfo[kcuu1]} )) && bindkey "${terminfo[kcuu1]}" up-line-or-search
+(( ${+terminfo[kcud1]} )) && bindkey "${terminfo[kcud1]}" down-line-or-search
 
 autoload -Uz compinit && compinit -d "${zsh_cache_home}"/compdump
 

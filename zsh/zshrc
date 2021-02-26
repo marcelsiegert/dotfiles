@@ -37,6 +37,8 @@ bindkey -e
 (( ${+terminfo[knp]} )) && bindkey "${terminfo[knp]}" down-history
 (( ${+terminfo[kcuu1]} )) && bindkey "${terminfo[kcuu1]}" up-line-or-search
 (( ${+terminfo[kcud1]} )) && bindkey "${terminfo[kcud1]}" down-line-or-search
+(( ${+terminfo[kLFT5]} )) && bindkey "${terminfo[kLFT5]}" emacs-backward-word
+(( ${+terminfo[kRIT5]} )) && bindkey "${terminfo[kRIT5]}" emacs-forward-word
 
 autoload -Uz compinit && compinit -d "${zsh_cache_home}"/compdump
 

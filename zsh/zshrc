@@ -22,6 +22,7 @@ setopt SHARE_HISTORY
 
 eval $(dircolors)
 alias ls='ls --color=auto --hyperlink=auto'
+alias l='ls -ahlN'
 
 autoload -Uz preferred-util
 preferred-util EDITOR nvim vim vi

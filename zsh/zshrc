@@ -43,6 +43,7 @@ bindkey -e
 (( ${+terminfo[kcud1]} )) && bindkey "${terminfo[kcud1]}" down-line-or-search
 (( ${+terminfo[kLFT5]} )) && bindkey "${terminfo[kLFT5]}" emacs-backward-word
 (( ${+terminfo[kRIT5]} )) && bindkey "${terminfo[kRIT5]}" emacs-forward-word
+(( ${+terminfo[kcbt]} )) && bindkey "${terminfo[kcbt]}" reverse-menu-complete
 
 autoload -Uz compinit && compinit -d "${zsh_cache_home}"/compdump
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}

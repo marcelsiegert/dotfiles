@@ -46,8 +46,10 @@ bindkey -e
 (( ${+terminfo[kcbt]} )) && bindkey "${terminfo[kcbt]}" reverse-menu-complete
 
 autoload -Uz compinit && compinit -d "${zsh_cache_home}"/compdump
+zstyle ':completion:*' cache-path "${zsh_cache_home}"/compcache
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' menu select
+zstyle ':completion:*' use-cache true
 
 autoload -Uz promptinit && promptinit
 prompt marcelsiegert

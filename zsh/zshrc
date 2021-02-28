@@ -45,6 +45,7 @@ bindkey -e
 (( ${+terminfo[kRIT5]} )) && bindkey "${terminfo[kRIT5]}" emacs-forward-word
 
 autoload -Uz compinit && compinit -d "${zsh_cache_home}"/compdump
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 autoload -Uz promptinit && promptinit
 prompt marcelsiegert

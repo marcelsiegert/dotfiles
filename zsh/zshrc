@@ -48,7 +48,7 @@ bindkey -e
 autoload -Uz compinit && compinit -d "${zsh_cache_home}"/compdump
 zstyle ':completion:*' cache-path "${zsh_cache_home}"/compcache
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+l:|=* r:|=*'
 zstyle ':completion:*' menu select
 zstyle ':completion:*' use-cache true
 

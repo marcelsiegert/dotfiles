@@ -24,6 +24,8 @@ eval $(dircolors)
 alias ls='ls --color=auto --hyperlink=auto'
 alias l='ls -ahlN'
 
+alias grep='grep --color=auto'
+
 autoload -Uz preferred-util
 preferred-util EDITOR nvim vim vi
 preferred-util PAGER less more

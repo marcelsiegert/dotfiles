@@ -46,6 +46,7 @@ bindkey -e
 
 autoload -Uz compinit && compinit -d "${zsh_cache_home}"/compdump
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' menu select
 
 autoload -Uz promptinit && promptinit
 prompt marcelsiegert

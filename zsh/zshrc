@@ -24,6 +24,7 @@ eval $(dircolors)
 alias ls='ls --color=auto --hyperlink=auto'
 alias l='ls -ahlN'
 
+export GREP_COLORS='mt=1;44:cx=90'
 alias grep='grep --color=auto'
 
 autoload -Uz preferred-util

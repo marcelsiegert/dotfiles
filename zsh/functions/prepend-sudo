@@ -1,0 +1,22 @@
+emulate -LR zsh
+
+local editor="${VISUAL:-${EDITOR:-vi}}"
+
+if [[ -z "${BUFFER}" ]]; then
+  LBUFFER="$(builtin fc -ln -1)"
+fi
+
+case "${LBUFFER}" in
+  'sudoedit '*)
+    LBUFFER="${editor} ${LBUFFER#sudoedit }"
+    ;;
+  'sudo '*)
+    LBUFFER="${LBUFFER#sudo }"
+    ;;
+  "${editor} "*)
+    LBUFFER="sudoedit ${LBUFFER#${editor} }"
+    ;;
+  *)
+    LBUFFER="sudo ${LBUFFER}"
+    ;;
+esac

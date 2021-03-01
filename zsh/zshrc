@@ -36,10 +36,12 @@ preferred-util EDITOR nvim vim vi
 preferred-util PAGER less more
 preferred-util VISUAL nvim vim vi
 
+autoload -Uz prepend-sudo && zle -N prepend-sudo
 autoload -Uz zle-line-finish && zle -N zle-line-finish
 autoload -Uz zle-line-init && zle -N zle-line-init
 
 bindkey -e
+bindkey '\e\e' prepend-sudo
 (( ${+terminfo[kich1]} )) && bindkey "${terminfo[kich1]}" overwrite-mode
 (( ${+terminfo[kdch1]} )) && bindkey "${terminfo[kdch1]}" delete-char
 (( ${+terminfo[khome]} )) && bindkey "${terminfo[khome]}" beginning-of-line

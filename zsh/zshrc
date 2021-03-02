@@ -23,6 +23,11 @@ setopt SHARE_HISTORY
 DIRSTACKSIZE=10
 setopt AUTO_PUSHD
 setopt PUSHD_IGNORE_DUPS
+alias d='dirs -v'
+alias -- -='cd +1'
+for dirstack_index in {0..$(( DIRSTACKSIZE - 1 ))}; do
+  alias "${dirstack_index}"="cd +${dirstack_index}"
+done; unset dirstack_index
 
 eval $(dircolors)
 alias ls='ls --color=auto --hyperlink=auto'

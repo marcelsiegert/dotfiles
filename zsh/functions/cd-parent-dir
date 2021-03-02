@@ -1,0 +1,4 @@
+emulate -LR zsh
+
+builtin cd ..
+zle reset-prompt

@@ -1,4 +1,5 @@
 .zshrc -> zshrc
+XDG_CONFIG_HOME/zsh/functions/cd-parent-dir -> functions/cd-parent-dir
 XDG_CONFIG_HOME/zsh/functions/preferred-util -> functions/preferred-util
 XDG_CONFIG_HOME/zsh/functions/prepend-sudo -> functions/prepend-sudo
 XDG_CONFIG_HOME/zsh/functions/prompt_marcelsiegert_setup -> functions/prompt_marcelsiegert_setup

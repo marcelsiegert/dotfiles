@@ -36,6 +36,7 @@ preferred-util EDITOR nvim vim vi
 preferred-util PAGER less more
 preferred-util VISUAL nvim vim vi
 
+autoload -Uz cd-parent-dir && zle -N cd-parent-dir
 autoload -Uz prepend-sudo && zle -N prepend-sudo
 autoload -Uz zle-line-finish && zle -N zle-line-finish
 autoload -Uz zle-line-init && zle -N zle-line-init
@@ -52,6 +53,7 @@ bindkey '\e\e' prepend-sudo
 (( ${+terminfo[kcud1]} )) && bindkey "${terminfo[kcud1]}" down-line-or-search
 (( ${+terminfo[kLFT5]} )) && bindkey "${terminfo[kLFT5]}" emacs-backward-word
 (( ${+terminfo[kRIT5]} )) && bindkey "${terminfo[kRIT5]}" emacs-forward-word
+(( ${+terminfo[kUP3]} )) && bindkey "${terminfo[kUP3]}" cd-parent-dir
 (( ${+terminfo[kcbt]} )) && bindkey "${terminfo[kcbt]}" reverse-menu-complete
 
 autoload -Uz compinit && compinit -d "${zsh_cache_home}"/compdump

@@ -21,6 +21,7 @@ setopt HIST_VERIFY
 setopt SHARE_HISTORY
 
 DIRSTACKSIZE=10
+setopt AUTO_PUSHD
 
 eval $(dircolors)
 alias ls='ls --color=auto --hyperlink=auto'

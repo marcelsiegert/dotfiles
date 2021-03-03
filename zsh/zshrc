@@ -72,7 +72,7 @@ autoload -Uz compinit && compinit -d "${zsh_cache_home}"/compdump
 zstyle ':completion:*' cache-path "${zsh_cache_home}"/compcache
 zstyle ':completion:*' ignore-parents parent pwd
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+l:|=* r:|=*'
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+m:{-_}={_-}' '+l:|=* r:|=*'
 zstyle ':completion:*' menu select
 zstyle ':completion:*' use-cache true
 

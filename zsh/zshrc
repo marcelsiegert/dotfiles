@@ -76,6 +76,9 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+m:{-_}={_-}' '+l:|=* r:|=*'
 zstyle ':completion:*' menu select
 zstyle ':completion:*' use-cache true
+zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
+zstyle ':completion:*:messages' format ' %F{purple}-- %d --%f'
+zstyle ':completion:*:warnings' format ' %F{red}-- no matches --%f'
 
 autoload -Uz promptinit && promptinit
 prompt marcelsiegert

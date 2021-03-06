@@ -74,8 +74,10 @@ zstyle ':completion:*' cache-path "${zsh_cache_home}"/compcache
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' ignore-parents parent pwd
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+m:{-_}={_-}' '+l:|=* r:|=*'
 zstyle ':completion:*' menu select
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 zstyle ':completion:*' use-cache true
 zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
 zstyle ':completion:*:messages' format ' %F{purple}-- %d --%f'

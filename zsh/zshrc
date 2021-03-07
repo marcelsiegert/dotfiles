@@ -1,3 +1,5 @@
+zmodload zsh/complist
+
 zsh_cache_home="${XDG_CACHE_HOME:-${HOME}/.cache}"/zsh && mkdir -p "${zsh_cache_home}"
 zsh_config_home="${XDG_CONFIG_HOME:-${HOME}/.config}"/zsh && mkdir -p "${zsh_config_home}"
 zsh_data_home="${XDG_DATA_HOME:-${HOME}/.local/share}"/zsh && mkdir -p "${zsh_data_home}"
@@ -59,21 +61,21 @@ autoload -Uz zle-line-finish && zle -N zle-line-finish
 autoload -Uz zle-line-init && zle -N zle-line-init
 
 bindkey -e
-bindkey '^[m' copy-prev-shell-word
-bindkey '^X^E' edit-command-line
-bindkey '\e\e' prepend-sudo
-(( ${+terminfo[kich1]} )) && bindkey "${terminfo[kich1]}" overwrite-mode
-(( ${+terminfo[kdch1]} )) && bindkey "${terminfo[kdch1]}" delete-char
-(( ${+terminfo[khome]} )) && bindkey "${terminfo[khome]}" beginning-of-line
-(( ${+terminfo[kend]} )) && bindkey "${terminfo[kend]}" end-of-line
-(( ${+terminfo[kpp]} )) && bindkey "${terminfo[kpp]}" up-history
-(( ${+terminfo[knp]} )) && bindkey "${terminfo[knp]}" down-history
-(( ${+terminfo[kcuu1]} )) && bindkey "${terminfo[kcuu1]}" history-substring-search-up
-(( ${+terminfo[kcud1]} )) && bindkey "${terminfo[kcud1]}" history-substring-search-down
-(( ${+terminfo[kLFT5]} )) && bindkey "${terminfo[kLFT5]}" emacs-backward-word
-(( ${+terminfo[kRIT5]} )) && bindkey "${terminfo[kRIT5]}" emacs-forward-word
-(( ${+terminfo[kUP3]} )) && bindkey "${terminfo[kUP3]}" cd-parent-dir
-(( ${+terminfo[kcbt]} )) && bindkey "${terminfo[kcbt]}" reverse-menu-complete
+bindkey -M emacs '^[m' copy-prev-shell-word
+bindkey -M emacs '^X^E' edit-command-line
+bindkey -M emacs '\e\e' prepend-sudo
+(( ${+terminfo[kich1]} )) && bindkey -M emacs "${terminfo[kich1]}" overwrite-mode
+(( ${+terminfo[kdch1]} )) && bindkey -M emacs "${terminfo[kdch1]}" delete-char
+(( ${+terminfo[khome]} )) && bindkey -M emacs "${terminfo[khome]}" beginning-of-line
+(( ${+terminfo[kend]} )) && bindkey -M emacs "${terminfo[kend]}" end-of-line
+(( ${+terminfo[kpp]} )) && bindkey -M emacs "${terminfo[kpp]}" up-history
+(( ${+terminfo[knp]} )) && bindkey -M emacs "${terminfo[knp]}" down-history
+(( ${+terminfo[kcuu1]} )) && bindkey -M emacs "${terminfo[kcuu1]}" history-substring-search-up
+(( ${+terminfo[kcud1]} )) && bindkey -M emacs "${terminfo[kcud1]}" history-substring-search-down
+(( ${+terminfo[kLFT5]} )) && bindkey -M emacs "${terminfo[kLFT5]}" emacs-backward-word
+(( ${+terminfo[kRIT5]} )) && bindkey -M emacs "${terminfo[kRIT5]}" emacs-forward-word
+(( ${+terminfo[kUP3]} )) && bindkey -M emacs "${terminfo[kUP3]}" cd-parent-dir
+(( ${+terminfo[kcbt]} )) && bindkey -M menuselect "${terminfo[kcbt]}" reverse-menu-complete
 
 autoload -Uz compinit && compinit -d "${zsh_cache_home}"/compdump
 zstyle ':completion:*' cache-path "${zsh_cache_home}"/compcache

@@ -49,6 +49,8 @@ preferred-util VISUAL nvim vim vi
 source "${zsh_config_home}"/vendor/zsh-history-substring-search/zsh-history-substring-search.zsh
 HISTORY_SUBSTRING_SEARCH_FUZZY='true'
 HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='l'
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='standout'
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='fg=red'
 
 autoload -Uz cd-parent-dir && zle -N cd-parent-dir
 autoload -Uz edit-command-line && zle -N edit-command-line

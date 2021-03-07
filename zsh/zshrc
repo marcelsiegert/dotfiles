@@ -82,6 +82,7 @@ zstyle ':completion:*' use-cache true
 zstyle ':completion:*:descriptions' format ' %F{yellow}-- %d --%f'
 zstyle ':completion:*:messages' format ' %F{purple}-- %d --%f'
 zstyle ':completion:*:warnings' format ' %F{red}-- no matches --%f'
+zstyle ':completion:*:manuals.*' insert-sections true
 zstyle ':completion:*:manuals' separate-sections true
 
 autoload -Uz promptinit && promptinit

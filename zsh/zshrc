@@ -47,6 +47,7 @@ preferred-util PAGER less more
 preferred-util VISUAL nvim vim vi
 
 source "${zsh_config_home}"/vendor/zsh-history-substring-search/zsh-history-substring-search.zsh
+HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='l'
 
 autoload -Uz cd-parent-dir && zle -N cd-parent-dir
 autoload -Uz edit-command-line && zle -N edit-command-line

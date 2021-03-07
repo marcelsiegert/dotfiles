@@ -84,6 +84,8 @@ zstyle ':completion:*:messages' format ' %F{purple}-- %d --%f'
 zstyle ':completion:*:warnings' format ' %F{red}-- no matches --%f'
 zstyle ':completion:*:manuals.*' insert-sections true
 zstyle ':completion:*:manuals' separate-sections true
+zstyle ':completion:*:processes' command 'ps -wwu "${USER}" -o pid,args'
+zstyle ':completion:*:processes-names' command 'ps -wwu "${USER}" -o comm | uniq'
 
 autoload -Uz promptinit && promptinit
 prompt marcelsiegert

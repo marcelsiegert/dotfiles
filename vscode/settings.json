@@ -1,3 +1,4 @@
 {
+    "files.trimTrailingWhitespace": true,
     "window.titleBarStyle": "custom"
 }

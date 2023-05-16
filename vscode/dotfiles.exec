@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+for extension in $(comm -13 <(cat ./extensions | sort) <(code --list-extensions | sort)); do
+  code --uninstall-extension "${extension}"
+done
+
+for extension in $(comm -23 <(cat ./extensions | sort) <(code --list-extensions | sort)); do
+  code --install-extension "${extension}"
+done

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
 function prompt_for_config_if_unset {
   local file="${XDG_CONFIG_HOME:-${HOME}/.config}"/git/config.local

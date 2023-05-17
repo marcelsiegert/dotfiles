@@ -1,4 +1,5 @@
 {
+    "editor.acceptSuggestionOnEnter": "off",
     "editor.dragAndDrop": false,
     "editor.fontFamily": "'Hack', 'monospace', monospace",
     "editor.renderWhitespace": "all",

@@ -2,6 +2,11 @@
 
 set -euo pipefail
 
+if ! command -v code &> /dev/null; then
+  printf 'VS Code is not installed, skipping...\n' >&2
+  exit 0
+fi
+
 for extension in $(comm -13 <(cat ./extensions | sort) <(code --list-extensions | sort)); do
   code --uninstall-extension "${extension}"
 done

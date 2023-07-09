@@ -14,5 +14,6 @@
     "window.commandCenter": true,
     "window.restoreWindows": "none",
     "window.titleBarStyle": "custom",
-    "workbench.colorTheme": "One Dark Pro Darker"
+    "workbench.colorTheme": "One Dark Pro Darker",
+    "workbench.editor.focusRecentEditorAfterClose": false
 }

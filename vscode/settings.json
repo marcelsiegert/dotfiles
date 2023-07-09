@@ -4,6 +4,7 @@
     "editor.acceptSuggestionOnCommitCharacter": false,
     "editor.acceptSuggestionOnEnter": "off",
     "editor.dragAndDrop": false,
+    "editor.find.seedSearchStringFromSelection": "never",
     "editor.fontFamily": "'Hack', 'monospace', monospace",
     "editor.renderWhitespace": "all",
     "extensions.ignoreRecommendations": true,

@@ -1,0 +1,7 @@
+emulate -LR zsh
+
+if [[ "${TERM}" != 'xterm'* ]]; then
+  return 0
+fi
+
+printf '%s%s%s' $'\e]0;' "${1}" $'\a'

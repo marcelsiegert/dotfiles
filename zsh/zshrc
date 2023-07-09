@@ -56,7 +56,10 @@ HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='fg=red'
 
 autoload -Uz cd-parent-dir && zle -N cd-parent-dir
 autoload -Uz edit-command-line && zle -N edit-command-line
+autoload -Uz precmd && zle -N precmd
+autoload -Uz preexec && zle -N preexec
 autoload -Uz prepend-sudo && zle -N prepend-sudo
+autoload -Uz terminal-title && zle -N terminal-title
 autoload -Uz zle-line-finish && zle -N zle-line-finish
 autoload -Uz zle-line-init && zle -N zle-line-init
 

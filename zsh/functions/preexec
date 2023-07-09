@@ -1,0 +1,11 @@
+emulate -LR zsh
+
+function {
+  local command="${2:gs/%/%%/}"
+  local hostname='%m'
+  local jobs='%(1j.[Jobs: %j] .)'
+  local prompt_sign='%#'
+  local username='%n'
+
+  terminal-title "${(%):-${jobs}${username}@${hostname}${prompt_sign}${command}}"
+} "${@}"

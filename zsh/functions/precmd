@@ -1,0 +1,10 @@
+emulate -LR zsh
+
+function {
+  local hostname='%m'
+  local jobs='%(1j.[Jobs: %j] .)'
+  local username='%n'
+  local working_dir='%40<...<%~%<<'
+
+  terminal-title "${(%):-${jobs}${username}@${hostname}:${working_dir}}"
+}

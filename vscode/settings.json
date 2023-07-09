@@ -9,6 +9,14 @@
     "editor.renderWhitespace": "all",
     "editor.unicodeHighlight.nonBasicASCII": true,
     "extensions.ignoreRecommendations": true,
+    "files.exclude": {
+        "**/.DS_Store": false,
+        "**/.git": false,
+        "**/.hg": false,
+        "**/.svn": false,
+        "**/CVS": false,
+        "**/Thumbs.db": false
+    },
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,

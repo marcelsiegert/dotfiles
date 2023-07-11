@@ -16,6 +16,7 @@
     ],
     "editor.unicodeHighlight.nonBasicASCII": true,
     "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
     "extensions.ignoreRecommendations": true,
     "files.eol": "\n",
     "files.exclude": {

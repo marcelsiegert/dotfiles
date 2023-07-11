@@ -4,6 +4,7 @@
     "editor.acceptSuggestionOnCommitCharacter": false,
     "editor.acceptSuggestionOnEnter": "off",
     "editor.copyWithSyntaxHighlighting": false,
+    "editor.cursorSurroundingLines": 10,
     "editor.dragAndDrop": false,
     "editor.find.seedSearchStringFromSelection": "never",
     "editor.fontFamily": "'Hack', 'monospace', monospace",

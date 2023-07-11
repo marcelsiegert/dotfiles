@@ -14,6 +14,7 @@
     ],
     "editor.unicodeHighlight.nonBasicASCII": true,
     "extensions.ignoreRecommendations": true,
+    "files.eol": "\n",
     "files.exclude": {
         "**/.DS_Store": false,
         "**/.git": false,

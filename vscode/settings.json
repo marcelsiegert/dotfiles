@@ -35,6 +35,7 @@
         "**/.git": true
     },
     "window.commandCenter": true,
+    "window.newWindowDimensions": "offset",
     "window.restoreWindows": "none",
     "window.titleBarStyle": "custom",
     "workbench.colorTheme": "One Dark Pro Darker",

@@ -8,6 +8,7 @@
     "editor.dragAndDrop": false,
     "editor.find.seedSearchStringFromSelection": "never",
     "editor.fontFamily": "'Hack', 'monospace', monospace",
+    "editor.linkedEditing": true,
     "editor.renderWhitespace": "all",
     "editor.rulers": [
         80,

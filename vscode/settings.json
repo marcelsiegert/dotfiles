@@ -16,6 +16,9 @@
         120
     ],
     "editor.unicodeHighlight.nonBasicASCII": true,
+    "emmet.includeLanguages": {
+        "twig": "html"
+    },
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
     "extensions.ignoreRecommendations": true,

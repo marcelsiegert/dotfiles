@@ -15,6 +15,7 @@
         100,
         120
     ],
+    "editor.stickyTabStops": true,
     "editor.unicodeHighlight.nonBasicASCII": true,
     "emmet.includeLanguages": {
         "twig": "html"

@@ -16,6 +16,7 @@
         120
     ],
     "editor.stickyTabStops": true,
+    "editor.suggest.localityBonus": true,
     "editor.suggestSelection": "recentlyUsed",
     "editor.unicodeHighlight.nonBasicASCII": true,
     "emmet.includeLanguages": {

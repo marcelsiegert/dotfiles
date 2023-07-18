@@ -16,6 +16,7 @@
         120
     ],
     "editor.stickyTabStops": true,
+    "editor.suggestSelection": "recentlyUsed",
     "editor.unicodeHighlight.nonBasicASCII": true,
     "emmet.includeLanguages": {
         "twig": "html"

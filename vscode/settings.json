@@ -46,5 +46,6 @@
     "workbench.colorTheme": "One Dark Pro Darker",
     "workbench.editor.focusRecentEditorAfterClose": false,
     "workbench.editor.highlightModifiedTabs": true,
-    "workbench.editor.untitled.hint": "hidden"
+    "workbench.editor.untitled.hint": "hidden",
+    "workbench.startupEditor": "readme"
 }

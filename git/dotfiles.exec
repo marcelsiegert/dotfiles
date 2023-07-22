@@ -6,7 +6,7 @@ function prompt_for_config_if_unset {
   local file="${XDG_CONFIG_HOME:-${HOME}/.config}"/git/config.local
   local key="${1}"
   local prompt="${2}"
-  local value
+  local value=''
 
   if ! git config --file "${file}" "${key}" > /dev/null; then
     while [[ -z "${value// }" ]]; do

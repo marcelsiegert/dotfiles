@@ -8,4 +8,5 @@ XDG_CONFIG_HOME/zsh/functions/prompt_marcelsiegert_setup -> functions/prompt_mar
 XDG_CONFIG_HOME/zsh/functions/terminal-title -> functions/terminal-title
 XDG_CONFIG_HOME/zsh/functions/zle-line-finish -> functions/zle-line-finish
 XDG_CONFIG_HOME/zsh/functions/zle-line-init -> functions/zle-line-init
+XDG_CONFIG_HOME/zsh/vendor/zsh-completions -> vendor/zsh-completions
 XDG_CONFIG_HOME/zsh/vendor/zsh-history-substring-search -> vendor/zsh-history-substring-search

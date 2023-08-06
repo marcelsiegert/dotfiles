@@ -1,6 +1,6 @@
 emulate -LR zsh
 
-local editor="${VISUAL:-${EDITOR:-vi}}"
+local editor="${SUDO_EDITOR:-${VISUAL:-${EDITOR:-vi}}}"
 
 if [[ -z "${BUFFER}" ]]; then
   LBUFFER="$(builtin fc -ln -1)"

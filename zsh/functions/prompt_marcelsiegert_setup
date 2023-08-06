@@ -5,7 +5,7 @@ function prompt_marcelsiegert_setup {
 
 function prompt_marcelsiegert_precmd {
   local battery_level=''
-  local hostname='%m'
+  local hostname='%M'
   local jobs='%(1j. [Jobs: %j].)'
   local prompt_sign='%#'
   local return_status='%B%(?.%F{green}.%F{red})•%f%b'

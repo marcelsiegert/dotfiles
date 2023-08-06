@@ -1,7 +1,7 @@
 emulate -LR zsh
 
 function {
-  local hostname='%m'
+  local hostname='%M'
   local jobs='%(1j.[Jobs: %j] .)'
   local username='%n'
   local working_dir='%40<...<%~%<<'

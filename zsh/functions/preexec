@@ -2,7 +2,7 @@ emulate -LR zsh
 
 function {
   local command="${2:gs/%/%%/}"
-  local hostname='%m'
+  local hostname='%M'
   local jobs='%(1j.[Jobs: %j] .)'
   local prompt_sign='%#'
   local username='%n'

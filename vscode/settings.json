@@ -51,8 +51,8 @@
     "window.restoreWindows": "none",
     "window.titleBarStyle": "custom",
     "workbench.colorTheme": "One Dark Pro Darker",
+    "workbench.editor.empty.hint": "hidden",
     "workbench.editor.focusRecentEditorAfterClose": false,
     "workbench.editor.highlightModifiedTabs": true,
-    "workbench.startupEditor": "readme",
-    "workbench.editor.empty.hint": "hidden"
+    "workbench.startupEditor": "readme"
 }

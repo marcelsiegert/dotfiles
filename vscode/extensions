@@ -1,6 +1,9 @@
 bmewburn.vscode-intelephense-client
 editorconfig.editorconfig
 formulahendry.code-runner
+ms-vscode.cpptools
 ms-vscode.hexeditor
+ms-vscode.vscode-serial-monitor
 rholdos.twig-language-support
+vscode-arduino.vscode-arduino-community
 zhuangtongfa.material-theme

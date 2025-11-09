@@ -4,6 +4,7 @@ zsh_cache_home="${XDG_CACHE_HOME:-${HOME}/.cache}"/zsh && mkdir -p "${zsh_cache_
 zsh_config_home="${XDG_CONFIG_HOME:-${HOME}/.config}"/zsh && mkdir -p "${zsh_config_home}"
 zsh_data_home="${XDG_DATA_HOME:-${HOME}/.local/share}"/zsh && mkdir -p "${zsh_data_home}"
 
+typeset -U path PATH
 path=(
   "${HOME}"/.local/bin
   ${path}

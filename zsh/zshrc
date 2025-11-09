@@ -10,6 +10,7 @@ path=(
   ${path}
 )
 
+typeset -U fpath FPATH
 fpath=(
   "${zsh_config_home}"/functions
   "${zsh_config_home}"/vendor/zsh-completions/src

@@ -57,14 +57,15 @@ HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='l'
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='standout'
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='fg=red'
 
+autoload -Uz add-zsh-hook add-zle-hook-widget
+add-zsh-hook -Uz precmd terminal-title-precmd
+add-zsh-hook -Uz preexec terminal-title-preexec
+add-zle-hook-widget -Uz zle-line-init zle-application-mode-start
+add-zle-hook-widget -Uz zle-line-finish zle-application-mode-stop
 autoload -Uz cd-parent-dir && zle -N cd-parent-dir
 autoload -Uz edit-command-line && zle -N edit-command-line
-autoload -Uz precmd && zle -N precmd
-autoload -Uz preexec && zle -N preexec
 autoload -Uz prepend-sudo && zle -N prepend-sudo
 autoload -Uz terminal-title && zle -N terminal-title
-autoload -Uz zle-line-finish && zle -N zle-line-finish
-autoload -Uz zle-line-init && zle -N zle-line-init
 
 bindkey -e
 bindkey -M emacs '^[m' copy-prev-shell-word

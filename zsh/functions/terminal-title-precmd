@@ -1,0 +1,8 @@
+emulate -LR zsh
+
+local hostname='%M'
+local jobs='%(1j.[Jobs: %j] .)'
+local username='%n'
+local working_dir='%40<...<%~%<<'
+
+terminal-title "${(%):-${jobs}${username}@${hostname}:${working_dir}}"

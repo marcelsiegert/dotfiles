@@ -104,5 +104,6 @@ zstyle ':completion:*:processes-names' command 'ps -wwu "${USER}" -o comm | uniq
 
 autoload -Uz promptinit && promptinit
 prompt marcelsiegert
+typeset -U PROMPT_MARCELSIEGERT_EXECUTION_TIME_EXCLUDE=("${EDITOR}" "${PAGER}" "${VISUAL}")
 
 [[ -f "${HOME}"/.zshrc.local ]] && source "${HOME}"/.zshrc.local || true

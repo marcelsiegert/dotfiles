@@ -1,10 +1,12 @@
 function prompt_marcelsiegert_setup {
   prompt_opts=(cr percent sp)
   add-zsh-hook precmd prompt_marcelsiegert_precmd
+  add-zsh-hook preexec prompt_marcelsiegert_preexec
 }
 
 function prompt_marcelsiegert_precmd {
   local battery_level=''
+  local execution_time="$(prompt_marcelsiegert_execution_time)"
   local hostname='%M'
   local jobs='%(1j. [Jobs: %j].)'
   local prompt_sign='%#'
@@ -13,12 +15,26 @@ function prompt_marcelsiegert_precmd {
   local username='%B%F{blue}%n%f%b'
   local working_dir='%B%40<...<%~%<<%b'
 
+  unset _PROMPT_MARCELSIEGERT_EXECUTION_TIME_START
+
   if [[ -z "${DISPLAY}" ]]; then
     battery_level="$(prompt_marcelsiegert_battery_level)"
     time=' [%T]'
   fi
 
-  PS1="${username}@${hostname} ${working_dir}${time}${battery_level}${jobs}${prompt_newline}${return_status} ${prompt_sign} "
+  PS1="${username}@${hostname} ${working_dir}${time}${battery_level}${jobs}${execution_time}${prompt_newline}${return_status} ${prompt_sign} "
+}
+
+function prompt_marcelsiegert_preexec {
+  if (( ${+PROMPT_MARCELSIEGERT_EXECUTION_TIME_EXCLUDE} )); then
+    local command=(${(Q)${(z)2}})
+
+    if (( PROMPT_MARCELSIEGERT_EXECUTION_TIME_EXCLUDE[(Ie)${command[1]}] )); then
+      return
+    fi
+  fi
+
+  _PROMPT_MARCELSIEGERT_EXECUTION_TIME_START="${SECONDS}"
 }
 
 function prompt_marcelsiegert_battery_level {
@@ -49,6 +65,35 @@ function prompt_marcelsiegert_battery_level {
   done
 
   echo " [Battery:${response}]"
+}
+
+function prompt_marcelsiegert_execution_time {
+  if (( ! ${+_PROMPT_MARCELSIEGERT_EXECUTION_TIME_START} )); then
+    return
+  fi
+
+  local -i elapsed_seconds="$(( SECONDS - _PROMPT_MARCELSIEGERT_EXECUTION_TIME_START ))"
+
+  if (( elapsed_seconds < 30 )); then
+    return
+  fi
+
+  local response=''
+  local -i hours="$(( elapsed_seconds / 3600 ))"
+  local -i minutes="$(( (elapsed_seconds / 60) % 60 ))"
+  local -i seconds="$(( elapsed_seconds % 60 ))"
+
+  if (( hours > 0 )); then
+    response+="${hours}h"
+  fi
+
+  if (( minutes > 0 )); then
+    response+="${minutes}m"
+  fi
+
+  response+="${seconds}s"
+
+  echo " [Elapsed: ${response}]"
 }
 
 prompt_marcelsiegert_setup "${@}"

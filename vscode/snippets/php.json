@@ -32,5 +32,19 @@
             "exit();"
         ],
         "description": "var_dump() with HTML <pre> tags followed by exit()"
+    },
+    "dump()": {
+        "prefix": "d",
+        "body": [
+            "dump(${1:values});$0"
+        ],
+        "description": "Standalone Symfony dump()"
+    },
+    "dump() and die": {
+        "prefix": "dd",
+        "body": [
+            "dd(${1:values});$0"
+        ],
+        "description": "Symfony dd() which ends script execution"
     }
 }

@@ -1,2 +1,36 @@
 {
+    "var_dump()": {
+        "prefix": "vd",
+        "body": [
+            "var_dump(${1:values});$0"
+        ],
+        "description": "Standalone var_dump()"
+    },
+    "var_dump() + exit()": {
+        "prefix": "vde",
+        "body": [
+            "var_dump(${1:values});$0",
+            "exit();"
+        ],
+        "description": "var_dump() followed by exit()"
+    },
+    "var_dump() + <pre>": {
+        "prefix": "vdp",
+        "body": [
+            "echo '<pre>';",
+            "var_dump(${1:values});$0",
+            "echo '</pre>';"
+        ],
+        "description": "var_dump() with HTML <pre> tags"
+    },
+    "var_dump() + <pre> + exit()": {
+        "prefix": "vdpe",
+        "body": [
+            "echo '<pre>';",
+            "var_dump(${1:values});$0",
+            "echo '</pre>';",
+            "exit();"
+        ],
+        "description": "var_dump() with HTML <pre> tags followed by exit()"
+    }
 }

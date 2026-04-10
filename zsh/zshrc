@@ -51,6 +51,12 @@ preferred-util EDITOR nvim vim vi
 preferred-util PAGER less more
 preferred-util VISUAL nvim vim vi
 
+(( ${+aliases[run-help]} )) && unalias run-help
+autoload -Uz run-help
+for helper in ${^fpath}/run-help-*(N:t); do
+  autoload -Uz "${helper}"
+done; unset helper
+
 source "${zsh_config_home}"/vendor/zsh-history-substring-search/zsh-history-substring-search.zsh
 HISTORY_SUBSTRING_SEARCH_FUZZY='true'
 HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='l'

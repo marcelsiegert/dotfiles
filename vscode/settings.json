@@ -1,5 +1,6 @@
 {
     "arduino.useArduinoCli": true,
+    "chat.disableAIFeatures": true,
     "diffEditor.ignoreTrimWhitespace": false,
     "diffEditor.renderSideBySide": false,
     "editor.acceptSuggestionOnCommitCharacter": false,

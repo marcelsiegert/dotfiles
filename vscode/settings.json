@@ -47,6 +47,7 @@
     "search.exclude": {
         "**/.git": true
     },
+    "update.mode": "none",
     "window.autoDetectColorScheme": true,
     "window.commandCenter": true,
     "window.newWindowDimensions": "offset",
